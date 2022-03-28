@@ -1,23 +1,75 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Magneto : MonoBehaviour
 {
+    public event Action<bool,Vector3,Rigidbody> CanCatch;
+    public event Action<Vector3> SteerSnake;
+
+    [SerializeField] private Transform _snakeHead;
     [SerializeField] private float _power=1;
-    private const int MaxDistance=100;
-    private const string LayerNames = "Magnetable";
+    [SerializeField] private Transform _camera;
+
+    private const int MaxDistance=1000;
+    private const int CatchDistance=2;
+    private const string LayerNamesMagnetic = "Magnetic";
+    private const string LayerNamesTower = "Tower";
+
+    private bool _isOnSnake;
+    
 
     private void Update()
     {
-        Vector3 rayOrg = transform.position;
-        Vector3 rayDir = transform.forward;
-        Ray ray = new Ray(rayOrg,rayDir);
-        Debug.DrawRay(rayOrg,rayDir*MaxDistance,Color.blue);
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, MaxDistance,LayerMask.GetMask(LayerNames)))
+        if (_isOnSnake)
         {
-            raycastHit.rigidbody.AddForce((transform.position-raycastHit.point)*_power);
+            TowerMagneto();
+        }
+        else
+        {
+            CommonMagneto();
         }
     }
+
+    public void SetIsOnSnake(bool isOnSnake)
+    {
+        _isOnSnake = isOnSnake;
+    }
+    
+    private void CommonMagneto()
+    {
+        Vector3 rayOrg = _camera.position;
+        Vector3 rayDir = _camera.forward;
+        Ray ray = new Ray(rayOrg,rayDir);
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, MaxDistance,LayerMask.GetMask(LayerNamesMagnetic)))
+        {
+            float distance = Vector3.Distance(transform.position, raycastHit.point);
+            if (distance < CatchDistance)
+            {
+                CanCatch?.Invoke(true,raycastHit.point,raycastHit.rigidbody);
+            }
+            else
+            {
+                raycastHit.rigidbody.AddForce((transform.position-raycastHit.point)*_power);
+                CanCatch?.Invoke(false,raycastHit.point,raycastHit.rigidbody);
+            }
+        }
+        else
+        {
+            CanCatch?.Invoke(false,raycastHit.point,raycastHit.rigidbody);
+        }
+    }
+
+    private void TowerMagneto()
+    {
+        Vector3 rayOrg = _camera.position;
+        Vector3 rayDir = _camera.forward;
+        Ray ray = new Ray(rayOrg,rayDir);
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, MaxDistance, LayerMask.GetMask(LayerNamesTower)))
+        {
+            Vector3 formSnakeToTower = raycastHit.point - _snakeHead.position;
+            SteerSnake?.Invoke(formSnakeToTower);
+        }
+    }
+    
+    
 }

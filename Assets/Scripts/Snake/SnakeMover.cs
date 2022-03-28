@@ -1,38 +1,45 @@
 ﻿using UnityEngine;
-using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 
-public class SnakeMover
+namespace Snake
 {
-    private float _speed;
-    private Rigidbody _rigidbody;
-    private float _steerDirection;
-    private Transform _transform;
-
-    private float _turnSpeed=100;
-
-    public SnakeMover(Rigidbody rigidbody, PlayerInput input, float speed)
+    public class SnakeMover
     {
-        _rigidbody = rigidbody;
-        _transform = _rigidbody.transform;
-        _speed = speed;
+        private float _speed;
+        private Rigidbody _rigidbody;
+        private Transform _transform;
 
-        input.Snake.Rotate.performed += OnInput;
-        input.Snake.Rotate.canceled += OnInput;
-    }
+        private float _turnSpeed = 0.5f;
+        private Vector3 _lookDirection;
 
-    public void HandleMovement()
-    {
-        _transform.Translate(Vector3.forward*_speed*Time.deltaTime);
-    }
+        public SnakeMover(Rigidbody rigidbody, PlayerInput input, float speed)
+        {
+            _rigidbody = rigidbody;
+            _transform = _rigidbody.transform;
+            _speed = speed;
+            
+        }
 
-    public void HandleRotation()
-    {
-        _transform.Rotate(Vector3.up*_steerDirection*Time.deltaTime*_turnSpeed);
-    }
+        public void SetlookDirection(Vector3 lookDirection)
+        {
+            _lookDirection = lookDirection;
+        }
+        
 
-    private void OnInput(InputAction.CallbackContext ctx)
-    {
-        _steerDirection = ctx.ReadValue<float>();
+        public void HandleMovement()
+        {
+            _transform.Translate(Vector3.forward*_speed*Time.deltaTime);
+        }
+        
+        public void HandleRotation()
+        {
+            if (_lookDirection != Vector3.zero)
+            {
+                _lookDirection.y = 0;
+                Quaternion lookDirection=Quaternion.LookRotation(_lookDirection);
+                _transform.rotation=Quaternion.Slerp( _transform.rotation,lookDirection,Time.deltaTime*_turnSpeed);
+            }
+        }
+        
     }
 }

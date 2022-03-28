@@ -11,7 +11,8 @@
                     "id": "5586d8c6-e3b9-4a53-870b-853659d06b62",
                     "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -60,7 +61,8 @@
                     "id": "69ee04c9-45bb-410e-b3af-b8fc22bfca77",
                     "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "MouseY",
@@ -68,7 +70,8 @@
                     "id": "2c69d32a-b44d-44b9-85c5-a0de90de754e",
                     "expectedControlType": "Axis",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Jump",
@@ -76,7 +79,17 @@
                     "id": "ba924dae-21dc-4a17-8911-cf1c23919f66",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Catch",
+                    "type": "Button",
+                    "id": "28d9374d-fb42-435c-9f99-50c162c25dd7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -110,6 +123,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d9b2ac75-3ffa-433f-91d1-98226e27f763",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Catch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
