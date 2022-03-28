@@ -4,9 +4,9 @@ namespace Player
 {
     public class GroundChecker
     {
-        private const string _layerNameSnake="Snake";
+        private const string _layerNameSnake = "Snake";
         private const int MaxDistance = 1;
-                
+
         public bool IsOnSnake { get; private set; }
 
         private Transform _transform;
@@ -21,8 +21,8 @@ namespace Player
             Vector3 rayOrg = _transform.position;
             Vector3 rayDir = -_transform.up;
             Ray ray = new Ray(rayOrg, rayDir);
-                        
-            if (Physics.Raycast(ray, out RaycastHit raycastHit, MaxDistance,LayerMask.GetMask(_layerNameSnake)))
+
+            if (Physics.Raycast(ray, out RaycastHit raycastHit, MaxDistance, LayerMask.GetMask(_layerNameSnake)))
             {
                 IsOnSnake = true;
                 _transform.SetParent(raycastHit.transform);

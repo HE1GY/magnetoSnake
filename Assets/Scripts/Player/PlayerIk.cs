@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
-using UnityEngine.InputSystem;
 
 namespace Player
 {
@@ -17,14 +16,12 @@ namespace Player
             _handRig = handRig;
             _handTarget = _handRig.GetComponentInChildren<ChainIKConstraint>().data.target;
         }
-        
+
 
         public void OnCatch(Vector3 itemPosition)
         {
             _handTarget.position = itemPosition;
             Catch?.Invoke();
         }
-                
-                
     }
 }

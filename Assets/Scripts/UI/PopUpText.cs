@@ -1,28 +1,28 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PopUpText : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private Magneto _magneto;
-    [SerializeField] private Text _text;
-
-
-    private void OnEnable()
+    public class PopUpText : MonoBehaviour
     {
-        _magneto.CanCatch += OnCanCatch;
-    }
-
-    private void OnDisable()
-    {
-        _magneto.CanCatch -= OnCanCatch;
-    }
+        [SerializeField] private Magneto _magneto;
+        [SerializeField] private Text _text;
 
 
-    private void OnCanCatch(bool canCatch, Vector3 position, Rigidbody rigidbody)
-    {
-        _text.enabled = canCatch;
+        private void OnEnable()
+        {
+            _magneto.CanCatch += OnCanCatch;
+        }
+
+        private void OnDisable()
+        {
+            _magneto.CanCatch -= OnCanCatch;
+        }
+
+
+        private void OnCanCatch(bool canCatch, Vector3 position, Rigidbody rigidbody)
+        {
+            _text.enabled = canCatch;
+        }
     }
 }

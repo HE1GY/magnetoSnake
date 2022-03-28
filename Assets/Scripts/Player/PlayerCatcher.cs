@@ -3,20 +3,20 @@ using UnityEngine;
 
 namespace Player
 {
-    public  class PlayerCatcher
+    public class PlayerCatcher
     {
         public event Action<Vector3> Catch;
-        
+
         private const int DefaultLayer = 0;
         private const int MagneticLayer = 7;
 
         private readonly Transform _placeHolder;
         private Rigidbody _currentRigidbody;
         private Collider _currentCollider;
-        
+
         private bool _catchPress;
 
-        public PlayerCatcher(Transform placeHolder,PlayerInput playerInput)
+        public PlayerCatcher(Transform placeHolder, PlayerInput playerInput)
         {
             _placeHolder = placeHolder;
 
@@ -30,8 +30,8 @@ namespace Player
                 }
             };
         }
-        
-        public void OnCanCatch(bool canCatch,Vector3 itemPosition,Rigidbody rigidbody)
+
+        public void OnCanCatch(bool canCatch, Vector3 itemPosition, Rigidbody rigidbody)
         {
             if (canCatch && _catchPress)
             {

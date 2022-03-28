@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Snake
@@ -14,18 +13,19 @@ namespace Snake
         private SnakeMover _snakeMover;
         private Rigidbody _rigidbody;
         private PlayerInput _input;
-    
+
         private Body _body;
 
         private bool _dead;
+
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
             _input = new PlayerInput();
-        
-            _snakeMover = new SnakeMover(_rigidbody,_input,_speed);
-            _body = new Body(_bodySegment,_growZone);
-            _magneto.SteerSnake += _snakeMover.SetlookDirection;
+
+            _snakeMover = new SnakeMover(_rigidbody, _speed);
+            _body = new Body(_bodySegment, _growZone);
+            _magneto.SteerSnake += _snakeMover.SetLookDirection;
         }
 
         private void OnEnable()
@@ -37,7 +37,7 @@ namespace Snake
         {
             _input.Disable();
         }
-    
+
         private void Update()
         {
             if (!_dead)
@@ -55,9 +55,7 @@ namespace Snake
                 _dead = true;
                 _rigidbody.isKinematic = false;
                 _rigidbody.AddForce(Vector3.up * _boomForce, ForceMode.Acceleration);
-                print("booom");
             }
         }
-        
     }
 }

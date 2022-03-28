@@ -7,11 +7,11 @@ namespace Snake
     public class GrowZone : MonoBehaviour
     {
         public event Action Grow;
-        
+
         [SerializeField] private MeshRenderer _meshRenderer;
         [SerializeField] private Color _color;
         [SerializeField] private Color _color2;
-        
+
 
         private void Start()
         {
@@ -20,18 +20,19 @@ namespace Snake
 
         private async void Fading()
         {
-            float t=0;
+            float t = 0;
             while (true)
             {
                 if (t < 1)
                 {
-                    _meshRenderer.material.color=Color.Lerp(_color, _color2, t);
+                    _meshRenderer.material.color = Color.Lerp(_color, _color2, t);
                     t += Time.deltaTime;
                 }
                 else if (t > 1)
                 {
                     t = 0;
                 }
+
                 await Task.Yield();
             }
         }

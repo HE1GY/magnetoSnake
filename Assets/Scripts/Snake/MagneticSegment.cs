@@ -4,6 +4,5 @@ namespace Snake
 {
     public class MagneticSegment : MonoBehaviour
     {
-   
     }
 }

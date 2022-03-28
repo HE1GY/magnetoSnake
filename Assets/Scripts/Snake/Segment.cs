@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 
-public class Segment:MonoBehaviour
+namespace Snake
 {
-    [SerializeField]private float _speed;
-    public void HandleSegmentMove(Vector3 position)
+    public class Segment : MonoBehaviour
     {
-        transform.LookAt(position);
-        transform.position = position;
+        [SerializeField] private float _speed;
+
+        public void HandleSegmentMove(Vector3 position)
+        {
+            transform.LookAt(position);
+            transform.position = position;
+        }
     }
 }

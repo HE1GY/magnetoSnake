@@ -6,7 +6,7 @@ namespace Snake
     public class Body
     {
         private const int Gab = 300;
-    
+
         private List<Vector3> _moveHistory = new List<Vector3>();
         private List<Segment> _bodySegments = new List<Segment>();
 
@@ -33,18 +33,17 @@ namespace Snake
 
         public void ScanMovePosition(Vector3 position)
         {
-            _moveHistory.Insert(0,position);
+            _moveHistory.Insert(0, position);
 
             for (int i = 0; i < _bodySegments.Count; i++)
             {
                 Vector3 point = _moveHistory[Mathf.Min(i * Gab, _moveHistory.Count - 1)];
                 _bodySegments[i].HandleSegmentMove(point);
             }
-            Vector3 growPos=_moveHistory[Mathf.Min(_bodySegments.Count*Gab, _moveHistory.Count - 1)];
+
+            Vector3 growPos = _moveHistory[Mathf.Min(_bodySegments.Count * Gab, _moveHistory.Count - 1)];
             _growZone.transform.LookAt(growPos);
             _growZone.transform.position = growPos;
         }
-    
-
     }
 }

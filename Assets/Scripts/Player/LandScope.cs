@@ -1,16 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class LandScope : MonoBehaviour
+namespace Player
 {
-    private const int TurnSpeed = 2;
-    public bool IsRotateting;
-    void Update()
+    public class LandScope : MonoBehaviour
     {
-        if (IsRotateting)
+        private const int TurnSpeed = 2;
+        public bool IsRotateting { get; set; }
+
+        void Update()
         {
-            transform.Rotate(Vector3.forward*TurnSpeed);
+            if (IsRotateting)
+            {
+                transform.Rotate(Vector3.forward * TurnSpeed);
+            }
         }
     }
 }
